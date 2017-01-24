@@ -5,15 +5,21 @@ VAR
  s : boolean;
  f : boolean;
 DEFINE
- lm := toint((l & !next(l)) | (!l & next(l)));
- sm := toint((s & !next(s)) | (!s & next(s)));
- mm := toint((m & !next(m)) | (!m & next(m)));
- w := 50*lm + 30*mm + 20*sm;
+ lm := (l & !next(l)) | (!l & next(l));
+ sm := (s & !next(s)) | (!s & next(s));
+ mm := (m & !next(m)) | (!m & next(m));
+ fm := (f & !next(f)) | (!f & next(f));
+ w := 50*toint(lm) + 30*toint(mm) + 20*toint(sm);
 INIT
  l = FALSE & m = FALSE & s = FALSE & f = FALSE;
 TRANS
-  (f -> !next(f)) &
-  (!f -> next(f)) &
+  (fm & (lm|sm|mm)) &
+-- ne peut changer que si la feuille est de leur cote
+  (!f & m -> next(m)) & (f & !m -> !next(m)) &
+  (!f & l -> next(l)) & (f & !l -> !next(l)) &
+  (!f & s -> next(s)) & (f & !s -> !next(s)) &
+-- poids < 60g
   (w < 60)
 
 SPEC EF(l & m & s)
+SPEC AG!(l & m & s)

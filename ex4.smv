@@ -1,0 +1,15 @@
+MODULE main
+VAR
+ phi : boolean;
+ psi : boolean;
+ rho : boolean;
+
+SPEC EF(phi) <-> EG(phi)
+SPEC EF(phi) <-> EF(phi)
+SPEC EF phi | EF psi <-> EG (phi | psi)
+SPEC AF phi | AF psi <-> AF (phi | psi)
+SPEC AF !psi <-> ! EG psi
+SPEC EF !psi <-> ! AF psi
+SPEC A[psi U A[phi U rho]] <-> A[ A[psi U phi] U rho]
+SPEC TRUE <-> AG phi -> EG phi
+SPEC TRUE <-> EG phi -> AG phi
