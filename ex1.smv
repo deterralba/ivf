@@ -1,0 +1,18 @@
+MODULE main
+VAR
+ request : boolean ;
+ state : {ready, busy};
+ASSIGN
+ init(state) := ready;
+ next(state) := case
+  state = ready & request : busy;
+  TRUE : {ready,busy};
+ esac;
+
+SPEC AG(request -> AF state = busy)
+SPEC AG(request -> AF state = ready)
+SPEC AG(request -> AG state = busy)
+
+LTLSPEC G(request -> F state = busy)
+LTLSPEC G(request -> F state = ready)
+LTLSPEC G(request -> G state = busy)
