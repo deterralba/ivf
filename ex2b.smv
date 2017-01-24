@@ -1,0 +1,23 @@
+MODULE main
+VAR
+ c : {ab, a_b, _ab, _a_b};
+DEFINE
+ a := c=ab | c=a_b;
+ b := c=_ab | c=_ab;
+ASSIGN
+ init(c) := a_b;
+ next(c) := case
+  a & b : _ab;
+  a & !b : {ab, _ab, _a_b};
+  !a & b : _ab;
+  !a & !b : _ab;
+ esac;
+
+LTLSPEC G(a)
+LTLSPEC G(a U b)
+LTLSPEC a U X (a & !b)
+LTLSPEC X !b & G(!a | !b)
+LTLSPEC X(a & b) & F(!a & !b)
+SPEC EF EG a
+SPEC EF EG b
+LTLSPEC F ((G a) | (G b))
