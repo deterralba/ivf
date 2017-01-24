@@ -1,0 +1,22 @@
+MODULE main
+VAR
+ l : boolean;
+ m : boolean;
+ s : boolean;
+ f : boolean;
+DEFINE
+ lm := toint((l & !next(l)) | (!l & next(l)));
+ sm := toint((s & !next(s)) | (!s & next(s)));
+ mm := toint((m & !next(m)) | (!m & next(m)));
+ w := 50*lm + 30*mm + 20*sm;
+INIT
+ l = FALSE & m = FALSE & s = FALSE & f = FALSE;
+TRANS
+  (f -> !next(f)) &
+  (!f -> next(f)) &
+  (w < 60)
+--  (a & !b & next(b) -> next(a) in {TRUE, FALSE} & next(b)) &
+--  (a & !b & !next(b) -> next(a)=FALSE & !next(b)) &
+--  (!a -> !next(a) & next(b));
+
+SPEC EF(l & m & s)
