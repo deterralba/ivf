@@ -15,8 +15,5 @@ TRANS
   (f -> !next(f)) &
   (!f -> next(f)) &
   (w < 60)
---  (a & !b & next(b) -> next(a) in {TRUE, FALSE} & next(b)) &
---  (a & !b & !next(b) -> next(a)=FALSE & !next(b)) &
---  (!a -> !next(a) & next(b));
 
 SPEC EF(l & m & s)
