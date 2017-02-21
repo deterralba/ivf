@@ -1,0 +1,25 @@
+MODULE main
+VAR
+ K : {2};
+ d : array 0..2 of 0..K;
+ASSIGN
+  next(d[0]) := case
+    d[0]  = d[2] : (d[0] + 1) mod K;
+    d[0] != d[2] : d[0];
+  esac;
+  next(d[1]) := case
+    d[1] != d[0] : d[0];
+    d[1]  = d[0] : d[1];
+  esac;
+  next(d[2]) := case
+    d[2] != d[1] : d[1];
+    d[2]  = d[1] : d[2];
+  esac;
+DEFINE
+ c0 := d[0]  = d[2];
+ c1 := d[1] != d[0];
+ c2 := d[2] != d[1];
+
+LTLSPEC G F(c0)
+LTLSPEC G F(c1)
+LTLSPEC G F(c2)

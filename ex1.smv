@@ -9,10 +9,10 @@ ASSIGN
   TRUE : {ready,busy};
  esac;
 
-SPEC AG(request -> AF state = busy)
-SPEC AG(request -> AF state = ready)
-SPEC AG(request -> AG state = busy)
+SPEC AG(request -> AF state = busy)     -- True
+SPEC AG(request -> AF state = ready)    -- Fasle
+SPEC AG(request -> AG state = busy)     -- Fasle
 
-LTLSPEC G(request -> F state = busy)
-LTLSPEC G(request -> F state = ready)
-LTLSPEC G(request -> G state = busy)
+LTLSPEC G(request -> F state = busy)    -- True
+LTLSPEC G(request -> F state = ready)   -- Fasle
+LTLSPEC G(request -> G state = busy)    -- Fasle
